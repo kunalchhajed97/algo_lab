@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-int minsum=1000000000;
+#include <limits.h>
+int minsum=INT_MAX;
 void swap(int* a, int* b)
 {
  int temp = *a;
@@ -43,7 +44,7 @@ int main()
     for (i=0; i<n; i++)
          mat[i] = (int *)malloc(n * sizeof(int));
 
-	int arr[n];
+	int* arr = (int*) malloc(n*sizeof(int));
 	printf("Enter cost matrix\n");
 	for(i=0;i<n;i++)
 	{
