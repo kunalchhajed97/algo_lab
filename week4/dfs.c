@@ -48,7 +48,7 @@ int main()
 	printf("Popping Order\n");
 	dfs_helper(arr,visited,n,count);
 
-	printf("Pushing Order: \n");
+	printf("\nPushing Order: \n");
 	for(i=1;i<=n;i++)
 		for(j=0;j<n;j++)
 			if(i == visited[j])
