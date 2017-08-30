@@ -50,9 +50,7 @@ int main()
 			}
 	}
 	source_removal(arr,n,removed,n);
-	
 	printf("\n");
-
 }
 
 
