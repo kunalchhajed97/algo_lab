@@ -35,7 +35,7 @@ int cyclic(int** arr,int n)
 				return 1;
 	return 0;
 }
-int** kruskals(int n,int** edges,int x)
+int** kruskals(int n,int** edges,int x,int* cost)
 {
 	int k=0,i,ecounter=0;
 	int** arr = (int**)calloc(n,sizeof(int*));
@@ -45,7 +45,10 @@ int** kruskals(int n,int** edges,int x)
 	{
 		arr[edges[k][0]][edges[k][1]]=arr[edges[k][1]][edges[k][0]]=edges[k][2];
 		if(!cyclic(arr,n))
+		{
+			(*cost)+=edges[k][2];
 			ecounter++;
+		}
 		else
 			arr[edges[k][0]][edges[k][1]]=arr[edges[k][1]][edges[k][0]]=0;
 		k++;
@@ -84,7 +87,8 @@ int main()
 			}
 		}
 	}
-	int** arr = kruskals(n,edges,x);
+	int cost=0;
+	int** arr = kruskals(n,edges,x,&cost);
 	printf("Output\n");
 	for(i=0;i<n;i++)
 	{
@@ -92,4 +96,5 @@ int main()
 			printf("%d ", arr[i][j]);
 		printf("\n");
 	}
+	printf("Cost: %d\n", cost);
 }
