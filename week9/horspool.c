@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 int comparisons = 0;
+
+void flushstdin()
+{
+	int c;
+	while ((c = getchar()) != '\n' && c != EOF);
+}
+
 int* computeShiftTable(char* pattern,int m)
 {
 	int* table = (int*)calloc(95,sizeof(int));
@@ -20,8 +27,11 @@ int horspool(char* pattern,int m,char* text,int n)
 	while(i<=n-1)
 	{
 		int k = 0;
-		while(comparisons++ && k<=m-1 && pattern[m-1-k] == text[i-k])
+		while(k<=m-1 && pattern[m-1-k] == text[i-k])
+		{	
 			k++;
+			comparisons++;
+		}
 		if(k==m)
 			return i-m+1;
 		else
@@ -33,11 +43,14 @@ int main()
 {
 	printf("Enter text:\n");
 	char text[1000],pattern[100];
-	scanf("%s", text);
+	//flushstdin();
+	fgets(text,sizeof(text),stdin);
 	printf("Enter pattern to be searched:\n");
-	scanf("%s",pattern);
+	fgets(pattern,sizeof(pattern),stdin);
 	int n = strlen(text),m = strlen(pattern);
-	int i = horspool(pattern,m,text,n);
+	text[n-1] = pattern[m-1] = '\0';
+	//printf("%s",text);
+	int i = horspool(pattern,m-1,text,n-1);
 	if(i==-1)
 		printf("Pattern not found.\n");
 	else
